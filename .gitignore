@@ -1,10 +1,10 @@
 *.iws
 *.iml
-!*log4j2.xml
-*.iprgit commit --amend
+*.ipr
 .vscode/
 .DS_Store
 *.xml
+!log4j2.xml
 !pom.xml
 .idea/
 target/
