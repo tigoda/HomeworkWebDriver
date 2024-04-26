@@ -1,11 +1,11 @@
 *.iws
 *.iml
 !*log4j2.xml
-*.ipr
+*.iprgit commit --amend
 .vscode/
 .DS_Store
 *.xml
-!*pom.zml
+!pom.xml
 .idea/
 target/
 logs/
