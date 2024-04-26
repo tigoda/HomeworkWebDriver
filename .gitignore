@@ -1,0 +1,11 @@
+*.iws
+*.iml
+!*log4j2.xml
+*.ipr
+.vscode/
+.DS_Store
+*.xml
+!*pom.zml
+.idea/
+target/
+logs/
