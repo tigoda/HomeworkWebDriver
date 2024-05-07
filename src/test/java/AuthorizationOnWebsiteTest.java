@@ -1,23 +1,19 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class Test3 {
+public class AuthorizationOnWebsiteTest {
 
 //    Открыть Chrome в режиме полного экрана
 //    Перейти на https://otus.ru
 //    Авторизоваться под каким-нибудь тестовым пользователем(можно создать нового)
 //    Вывести в лог все cookie
 
-    private final static Logger logger = LogManager.getLogger(Test3.class);
+    private final static Logger logger = LogManager.getLogger(AuthorizationOnWebsiteTest.class);
     private WebDriver driver;
 
     @BeforeAll
@@ -42,18 +38,15 @@ public class Test3 {
 
     @Test
     public void authorizationOnOtus() {
-        WebElement butt = driver.findElement(By.xpath("//button[text()='Войти']"));
-        butt.click();
-        WebElement email = driver.findElement(By.xpath("//div[./input[@name='email']]"));
-        email.click();
-        email = driver.findElement(By.xpath("//input[@name='email']"));
-        email.sendKeys("*********");
-        WebElement pass = driver.findElement(By.xpath("//div[./input[@type='password']]"));
-        pass.click();
-        pass = driver.findElement(By.xpath("//input[@type='password']"));
-        pass.sendKeys("**********");
-        WebElement butt2 = driver.findElement(By.xpath("//button[./*[text()='Войти']]"));
-        butt2.click();
+        driver.findElement(By.xpath("//button[text()='Войти']")).click();
+        driver.findElement(By.xpath("//div[./input[@name='email']]")).click();
+        driver.findElement(By.xpath("//input[@name='email']")).sendKeys("*****");
+        driver.findElement(By.xpath("//div[./input[@type='password']]")).click();
+        driver.findElement(By.xpath("//input[@type='password']")).sendKeys("*****");
+        driver.findElement(By.xpath("//button[./*[text()='Войти']]")).click();
+
+        Assertions.assertEquals("//span[text()='Кристина']", "//span[text()='Кристина']");
+
         logger.trace(driver.manage().getCookies());
     }
 }

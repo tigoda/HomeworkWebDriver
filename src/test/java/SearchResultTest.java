@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class Test1 {
+public class SearchResultTest {
 
 //    Открыть Chrome в headless режиме
 //    Перейти на https://duckduckgo.com/
@@ -34,7 +34,7 @@ public class Test1 {
     @AfterEach
     public void setDown() {
         if (driver != null) {
-            driver.close();
+            driver.quit();
         }
     }
 
