@@ -4,7 +4,12 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class AuthorizationOnWebsiteTest {
 
@@ -15,6 +20,9 @@ public class AuthorizationOnWebsiteTest {
 
     private final static Logger logger = LogManager.getLogger(AuthorizationOnWebsiteTest.class);
     private WebDriver driver;
+    private String name = System.getProperty("name");
+    private String password = System.getProperty("password");
+
 
     @BeforeAll
     public static void driverSetup() {
@@ -36,14 +44,23 @@ public class AuthorizationOnWebsiteTest {
         logger.trace("Закрытие браузера -  завершено");
     }
 
+    public WebElement waitToCondition(By locator) {
+        return new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
     @Test
     public void authorizationOnOtus() {
         driver.findElement(By.xpath("//button[text()='Войти']")).click();
+
         driver.findElement(By.xpath("//div[./input[@name='email']]")).click();
-        driver.findElement(By.xpath("//input[@name='email']")).sendKeys("*****");
+        waitToCondition(By.xpath("//input[@name='email']")).sendKeys(name);
+
         driver.findElement(By.xpath("//div[./input[@type='password']]")).click();
-        driver.findElement(By.xpath("//input[@type='password']")).sendKeys("*****");
-        driver.findElement(By.xpath("//button[./*[text()='Войти']]")).click();
+        waitToCondition(By.xpath("//input[@type='password']")).sendKeys(password);
+
+        waitToCondition(By.xpath("//button[./*[text()='Войти']]")).click();
+
 
         Assertions.assertEquals("//span[text()='Кристина']", "//span[text()='Кристина']");
 

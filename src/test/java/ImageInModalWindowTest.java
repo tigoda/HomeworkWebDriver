@@ -1,10 +1,17 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.Assert;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 
 public class ImageInModalWindowTest {
@@ -16,6 +23,7 @@ public class ImageInModalWindowTest {
 
 
     private WebDriver driver;
+
 
     @BeforeAll
     public static void driverSetup() {
@@ -37,12 +45,30 @@ public class ImageInModalWindowTest {
         }
     }
 
+    public boolean waitToCondition(By locator) {
+        try {
+            new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(locator));
+            return true;
+        } catch (TimeoutException ignored) {
+            return false;
+        }
+    }
+
     @Test
     public void checkingImageInModalWindow() {
-        WebElement jpg = driver.findElement(By.cssSelector("[data-id='id-3']"));
+
+        Boolean beforeClick = waitToCondition(By.cssSelector("[class='pp_expand']"));
+        System.out.println(beforeClick);
+
+        WebElement jpg = driver.findElement(By.cssSelector("[data-id ='id-3']"));
+
         Actions actions = new Actions(driver);
         actions.moveToElement(jpg).click().build().perform();
-        Assertions.assertFalse(driver.findElements(By.id("pp_full_res")).isEmpty());
+        Boolean afterClick = waitToCondition(By.cssSelector("[class='pp_expand']"));
+        System.out.println(afterClick);
+        Assertions.assertNotEquals(beforeClick, afterClick);
 
     }
 }
+
+

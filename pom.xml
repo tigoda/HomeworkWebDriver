@@ -21,7 +21,6 @@
     <selenium.version>4.19.1</selenium.version>
     <webdrivermanager.version>5.8.0</webdrivermanager.version>
     <junit.version>4.13.2</junit.version>
-    <testng.version>7.10.1</testng.version>
     <surefire.version>3.2.5</surefire.version>
     <maven-compiler.version>3.13.0</maven-compiler.version>
 </properties>
@@ -66,12 +65,6 @@
         <scope>test</scope>
     </dependency>
 
-    <dependency>
-        <groupId>org.testng</groupId>
-        <artifactId>testng</artifactId>
-        <version>${testng.version}</version>
-        <scope>test</scope>
-    </dependency>
 </dependencies>
 
     <build>
